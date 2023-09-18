@@ -10,8 +10,13 @@ const router = express.Router();
 
 const signupValidateMiddleware = validateBody(schemas.userSignupSchema);
 const signinValidateMiddleware = validateBody(schemas.userSigninSchema);
+const emailValidateMiddleware = validateBody(schemas.userEmailSchema);
 
 router.post("/register", signupValidateMiddleware, ctrl.register);
+
+router.get("/verify/:verificationCode", ctrl.verify);
+
+router.post("/verify", emailValidateMiddleware, ctrl.resendVerify);
 
 router.post("/login", signinValidateMiddleware, ctrl.login);
 
